@@ -1,9 +1,9 @@
 using Xunit;
 using System;
-using System.Collections.Generic;
 
 namespace GameEngine.Tests
 {
+    [Trait("Category", "Player")]
     public class PlayerCharacterShould
     {
         [Fact]

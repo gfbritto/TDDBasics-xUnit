@@ -2,6 +2,7 @@
 
 namespace GameEngine.Tests
 {
+    [Trait("Category", "Enemy")]
     public class BossEnemyShould
     {
         [Fact]
