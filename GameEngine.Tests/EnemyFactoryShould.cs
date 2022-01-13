@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace GameEngine.Tests
 {
@@ -54,7 +55,27 @@ namespace GameEngine.Tests
             var enemy1 = sut.Create("Peter");
             var enemy2 = sut.Create("Peter");
 
-            Assert.NotSame(enemy1,enemy2);
+            Assert.NotSame(enemy1, enemy2);
         }
+
+        [Fact]
+        public void NotAllowNullName()
+        {
+            var sut = new EnemyFactory();
+
+            Assert.Throws<ArgumentNullException>("name", () => sut.Create(null));
+        }
+
+        [Fact]
+        public void AllowOnlyQueenOrKingBossEnemies()
+        {
+            var sut = new EnemyFactory();
+
+            var ex =  Assert.Throws<EnemyCreationException>(() => sut.Create("Enemy", true));
+
+            Assert.Equal("Enemy", ex.RequestedEnemyName);
+        }
+
+
     }
 }
