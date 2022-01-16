@@ -2,25 +2,30 @@
 
 namespace GameEngine.Tests
 {
-    public class GameStateShould
+    public class GameStateShould : IClassFixture<GameStateFixture>
     {
+        private readonly GameStateFixture _gameStateFixture;
+
+        public GameStateShould(GameStateFixture gameStateFixture)
+        {
+            _gameStateFixture = gameStateFixture;
+        }
+
         [Fact]
         public void DamageAllEnemiesWhenEarfquake()
         {
-            var sut = new GameState();
+            var player = new PlayerCharacter();
+            var player2 = new PlayerCharacter();
 
-            var playerCharacter = new PlayerCharacter();
-            var playerCharacter2 = new PlayerCharacter();
+            _gameStateFixture.State.Players.Add(player);
+            _gameStateFixture.State.Players.Add(player2);
 
-            sut.Players.Add(playerCharacter);
-            sut.Players.Add(playerCharacter2);
+            var expectedHealthAfterEarfquake = player.Health - GameState.EarthquakeDamage;
 
-            var expectedHealthAfterEarfquake = playerCharacter.Health - GameState.EarthquakeDamage;
+            _gameStateFixture.State.Earthquake();
 
-            sut.Earthquake();
-
-            Assert.Equal(expectedHealthAfterEarfquake, playerCharacter.Health);
-            Assert.Equal(expectedHealthAfterEarfquake, playerCharacter2.Health);
+            Assert.Equal(expectedHealthAfterEarfquake, player.Health);
+            Assert.Equal(expectedHealthAfterEarfquake, player.Health);
         }
 
         [Fact]
