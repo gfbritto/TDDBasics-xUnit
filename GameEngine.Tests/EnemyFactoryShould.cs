@@ -67,7 +67,7 @@ namespace GameEngine.Tests
             Assert.Throws<ArgumentNullException>("name", () => sut.Create(null));
         }
 
-        [Fact]
+        [Fact(Skip ="I don't need to run this")]
         public void AllowOnlyQueenOrKingBossEnemies()
         {
             var sut = new EnemyFactory();
@@ -76,7 +76,5 @@ namespace GameEngine.Tests
 
             Assert.Equal("Enemy", ex.RequestedEnemyName);
         }
-
-
     }
 }
